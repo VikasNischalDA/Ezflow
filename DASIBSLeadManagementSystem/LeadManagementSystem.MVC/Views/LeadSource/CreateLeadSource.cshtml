@@ -1,0 +1,207 @@
+﻿@model LeadManagementSystem.Contracts.Request.LeadSource.LeadSourceVM;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="body-wrapper">
+    <div class="container-fluid">
+        <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4 bg-lightprimary">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">Add Lead Sources</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a class="text-muted text-decoration-none" href="lead-sources.html">Lead Sources</a>
+                                </li>
+                                <li class="breadcrumb-item" aria-current="page">Add Lead Sources</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-end">
+                            <img src="~/images/lead-icon.png" alt="Lead Sources" width="80" class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* <div class="d-flex border-bottom title-part-padding px-0 mb-3 pt-0 align-items-center">
+			<h4 class="mb-0 fs-5">Add/Edit Lead Source</h4>
+			<div class="ms-auto flex-shrink-0">
+				<a>Lead Source ID @Model.Id</a>
+			</div>
+		</div> *@
+
+        <div class="card">
+            <ul class="nav nav-pills user-profile-tab border-bottom" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6 fw-bold active" id="lead-tab" data-bs-toggle="pill" data-bs-target="#lead" type="button" role="tab" aria-controls="lead" aria-selected="true">
+                        Lead Source Info
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6 fw-bold" id="logs-tab" data-bs-toggle="pill" data-bs-target="#logs" type="button" role="tab" aria-controls="logs" aria-selected="false" tabindex="-1"> Logs </button>
+                </li>
+            </ul>
+
+            <div class="card-body">
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade active show" id="lead" role="tabpanel" aria-labelledby="lead-tab" tabindex="0">
+                        <form id="SaveEditLeadSource">
+                            <input type="hidden" id="ChangedBy" value="@(ViewContext.HttpContext.Session.GetString("Username") ?? "Guest")" />
+                            <div class="row pt-3">
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="LeadSourceId" name="LeadSourceId" placeholder="Lead Source ID" disabled>
+                                        <label>Lead Source ID</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="Active" name="Active">
+                                            <option value="true">Yes</option>
+                                            <option value="false" selected>No</option>
+                                        </select>
+                                        <label>Active?</label>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid state.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="BusinessUnit" name="BusinessUnit" value="">
+                                            <option value="SIBS">SIBS</option>
+                                        </select>
+                                        <label>Business Unit</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row pt-3">
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="LeadSource" name="LeadSource" value="" placeholder="LeadSource">
+                                        <label>Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="UMID" name="UMID" value="" placeholder="UMID">
+                                        <label>UMID</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="tel" class="form-control" id="TelephoneNumber" name="TelephoneNumber" value="" placeholder="Telephone Number">
+                                        <label>Telephone Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="CustomerFriendlyName" name="CustomerFriendlyName" value="" placeholder=" Customer Friendly Name">
+                                        <label>Customer Friendly Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="LeadSourceClass" name="LeadSourceClass" value="" placeholder="Lead Source Class">
+                                        <label>Lead Source Class</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row pt-3">
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="Digital" name="Digital">
+                                            <option value="true">Yes</option>
+                                            <option value="false" selected>No</option>
+                                        </select>
+                                        <label>Digital?</label>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid state.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <select id="ddlBrand" class="form-control">
+                                            <option value="">-- Select --</option>
+                                            @foreach (var item in Model.BrandList)
+                                            {
+                                                <option value="@item.BrandId">@item.Name</option>
+                                            }
+                                        </select>
+                                        <label>Brand</label>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid state.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <div class="card-body border-top px-0 pb-0">
+                                    <button type="submit" class="btn btn-primary px-5 py-8 mb-4 " id="saveButton">
+                                        Save
+                                    </button>
+                                    <a class="btn px-5 py-8 mb-4 bg-danger-subtle text-danger ms-6" asp-controller="LeadSource" asp-action="Index">
+                                        Cancel
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                </<div>
+                </div>
+            </div>
+            <script src="/lib/jquery/dist/jquery.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $('#SaveEditLeadSource').on('submit', function (event) {
+                        event.preventDefault(); // Prevent the default form submission
+                        var currentDateTime = new Date();
+                        // Collect the form data
+                        var model = {
+                            Id: null,
+                            Active: $('#Active').val() === "true",
+                            BusinessUnit: $('#BusinessUnit').val(),
+                            LeadSource: $('#LeadSource').val(),
+                            UMID: $('#UMID').val(),
+                            TelephoneNumber: $('#TelephoneNumber').val(),
+                            CustomerFriendlyName: $('#CustomerFriendlyName').val(),
+                            LeadSourceClass: $('#LeadSourceClass').val(),
+                            BrandId: $('#ddlBrand').val(),                            
+                            SubBrandName: $('#SubBrandName').val(),
+                            ChangedBy: $('#ChangedBy').val(),
+                            DigitalLeadSource: $('#Digital').val() === "true",
+                            LeadSourceId:0
+                        };
+
+                        // Make the AJAX request
+                            $.ajax({
+                            url: '/LeadSource/SaveLeadSource',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(model),
+                            success: function (response) {
+                                if (response.success === true) {
+                                    alert("Lead saved successfully!");
+                                    window.location.reload();
+                                    window.location.href = response.redirectUrl;
+                                }else{
+                                    alert("Failed to save!!!");
+                                }
+                            },
+                            error: function (xhr) {
+                                alert("An error occurred: " + xhr.responseText);
+                            }
+                        });
+                    });
+                });
+            </script>

@@ -1,0 +1,126 @@
+﻿@model LeadManagementSystem.Shared.Infrastructure.ActionResult<LeadManagementSystem.Shared.Contracts.Response.QueueManagementViewModel>
+@{
+    ViewBag.Title = "Queue Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="body-wrapper">
+    <div class="container-fluid">
+        <!-- Header Section -->
+        <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4 bg-lightprimary">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">Queue Management</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a class="text-muted text-decoration-none" href="#">Home</a>
+                                </li>
+                                <li class="breadcrumb-item" aria-current="page">Queue Management</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-end">
+                            <img src="~/images/queue-management.png" alt="Queue Management" width="80" class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carousel Section -->
+        <div class="row">
+            <div class="col-4">
+                <div class="card border-0 zoom-in bg-primary-subtle shadow-none">
+                    <div class="card-body">
+                        <a href="#" id="loadAllLeads">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <img src="~/images/icon-lead.png" alt="New Leads" width="40">
+                                    <h3 class="mb-0 fw-semibold fs-5 mx-3 text-dark">All Leads</h3>
+                                </div>
+                                <div class="round rounded text-bg-success d-flex align-items-center justify-content-center">
+                                    <span class="fw-bold text-white">35</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card border-0 zoom-in bg-danger-subtle shadow-none">
+                    <div class="card-body">
+                        <a href="#" id="loadAllTasks">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <img src="~/images/icon-task.png" alt="All Tasks" width="40">
+                                    <h3 class="mb-0 fw-semibold fs-5 mx-3 text-dark">All Tasks</h3>
+                                </div>
+                                <div class="round rounded text-bg-danger d-flex align-items-center justify-content-center">
+                                    <span class="fw-bold text-white">120</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card border-0 zoom-in bg-warning-subtle shadow-none">
+                    <div class="card-body">
+                        <a href="#" id="loadAllGlobalQueue">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <img src="~/images/icon-queue.png" alt="Global Queue" width="40">
+                                    <h3 class="mb-0 fw-semibold fs-5 mx-3 text-dark">Global Queue</h3>
+                                </div>
+                                <div class="round rounded text-bg-warning d-flex align-items-center justify-content-center">
+                                    <span class="fw-bold text-white">5</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body" id="tableBody">
+            @await Html.PartialAsync("_AllLeadsPartial",Model)
+        </div>
+    </div>
+</div>
+
+<!-- Include Bootstrap and jQuery -->
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+        $(document).ready(function () {
+        function loadPartialView(actionName) {
+            $.ajax({
+                url: '@Url.Action("ActionPlaceholder", "QueueManagement")'
+                .replace('ActionPlaceholder', actionName),
+                type: 'GET',
+                success: function (response) {
+                    $("#tableBody").html(response); 
+                },
+                error: function () {
+                    alert("Failed to load data.");
+                }
+            });
+        }
+
+        $("#loadAllLeads").click(function (e) {
+            e.preventDefault();
+            loadPartialView("LoadAllLeads");
+        });
+
+        $("#loadAllTasks").click(function (e) {
+            e.preventDefault();
+            loadPartialView("LoadAllTasks");
+        });
+
+        $("#loadAllGlobalQueue").click(function (e) {
+            e.preventDefault();
+            loadPartialView("LoadAllGloabalQueue");
+        });
+    });
+</script>

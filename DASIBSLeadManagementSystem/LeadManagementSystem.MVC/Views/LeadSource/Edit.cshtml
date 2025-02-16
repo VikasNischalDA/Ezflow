@@ -1,0 +1,378 @@
+﻿@model LeadManagementSystem.Shared.Contracts.Response.LeadSourceResponse;
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="body-wrapper">
+	<div class="container-fluid">
+		<div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4 bg-lightprimary">
+			<div class="card-body px-4 py-3">
+				<div class="row align-items-center">
+					<div class="col-9">
+						<h4 class="fw-semibold mb-8">Edit Lead Sources</h4>
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a class="text-muted text-decoration-none" href="lead-sources.html">Lead Sources</a>
+								</li>
+								<li class="breadcrumb-item" aria-current="page">Edit Lead Sources</li>
+							</ol>
+						</nav>
+					</div>
+					<div class="col-3">
+						<div class="text-end">
+							<img src="~/images/lead-icon.png" alt="Lead Sources" width="80" class="img-fluid" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		@* <div class="d-flex border-bottom title-part-padding px-0 mb-3 pt-0 align-items-center">
+			<h4 class="mb-0 fs-5">Add/Edit Lead Source</h4>
+			<div class="ms-auto flex-shrink-0">
+				<a>Lead Source ID @Model.Id</a>
+			</div>
+		</div> *@
+
+		<div class="card">
+			<ul class="nav nav-pills user-profile-tab border-bottom" id="pills-tab" role="tablist">
+				<li class="nav-item" role="presentation">
+					<button class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6 fw-bold active" id="lead-tab" data-bs-toggle="pill" data-bs-target="#lead" type="button" role="tab" aria-controls="lead" aria-selected="true">
+						Lead Source Info
+					</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6 fw-bold" id="logs-tab" data-bs-toggle="pill" data-bs-target="#logs" type="button" role="tab" aria-controls="logs" aria-selected="false" tabindex="-1"> Logs </button>
+				</li>
+			</ul>
+
+		<div class="card-body">
+			<div class="tab-content" id="pills-tabContent">
+				<div class="tab-pane fade active show" id="lead" role="tabpanel" aria-labelledby="lead-tab" tabindex="0">
+						<form id="SaveEditLeadSource">
+							<input type="hidden" id="ChangedBy" value="@(ViewContext.HttpContext.Session.GetString("Username") ?? "Guest")" />
+						<div class="row pt-3">
+							<div class="col-md-4">
+								<div class="form-floating mb-3">
+										<input type="number" class="form-control" id="LeadSourceId" name="LeadSourceId" value="@Model.Id" placeholder="Lead Source ID" disabled>
+									<label>Lead Source ID</label>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-floating mb-3">
+										<select class="form-select" id="Active" name="Active">
+											@if (Model.Active)
+											{
+												<option value="true" selected>Yes</option>
+												<option value="false">No</option>
+											}
+											else
+											{
+												<option value="true">Yes</option>
+												<option value="false" selected>No</option>
+											}
+										</select>
+									<label>Active?</label>
+									<div class="invalid-feedback">
+										Please provide a valid state.
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-floating mb-3">
+										<select class="form-select" id="BusinessUnit" name="BusinessUnit" value="@Model.BusinessUnit" asp-for="BusinessUnit">
+										<option value="SIBS">SIBS</option>
+									</select>
+									<label>Business Unit</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="row pt-3">
+							<div class="col-md-4">
+								<div class="form-floating mb-3">
+										<input type="text" class="form-control" id="LeadSource" name="LeadSource" value="@Model.LeadSource" placeholder="LeadSource">
+									<label>Name</label>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-floating mb-3">
+										<input type="number" class="form-control" id="UMID" name="UMID" value="@Model.UMID"  placeholder="UMID">
+									<label>UMID</label>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-floating mb-3">
+										<input type="tel" class="form-control" id="TelephoneNumber" name="TelephoneNumber" value="@Model.TelephoneNumber" placeholder="Telephone Number">
+									<label>Telephone Number</label>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-floating mb-3">
+										<input type="text" class="form-control" id="CustomerFriendlyName" name="CustomerFriendlyName" value="@Model.CustomerFriendlyName" placeholder=" Customer Friendly Name">
+									<label>Customer Friendly Name</label>
+								</div>
+							</div>
+								<div class="col-md-4">
+									<div class="form-floating mb-3">
+										<input type="text" class="form-control" id="LeadSourceClass" name="LeadSourceClass" value="@Model.LeadSourceClass" placeholder="Lead Source Class">
+										<label>Lead Source Class</label>
+									</div>
+								</div>
+						</div>
+
+						@* <div class="row pt-3">
+							
+							
+						</div> *@
+
+							<div class="row pt-3">
+								<div class="col-md-12">
+									<div class="card w-100 bg-primary-subtle">
+										<div class="card-body p-3">
+											<div class="d-flex align-items-center">
+												<div>
+													<h5 class="card-title fw-semibold">Brands</h5>
+												</div>
+											</div>
+											<div class="row pt-3">
+												<div class="col-sm-3">
+													<div class="mb-3">
+														<input type="text" class="form-control bg-white" id="BrandId" name="BrandId" value="@Model.BrandId" placeholder="Brand ID">
+													</div>
+												</div>											
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+                
+
+						@* <div class="row pt-3">
+							<div class="col-md-6">
+								<div class="form-floating mb-3">
+									<select class="form-select" placeholder="Process">
+										<option value="">Auto Pre-Qualification</option>
+										<option value="">Pre-Qualification</option>
+									</select>
+									<label>
+										Process
+									</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-floating mb-3">
+									<select class="form-select" placeholder="Permission to Promote Message">
+										<option value="">Default</option>
+										<option value="">Auto</option>
+									</select>
+									<label>
+										Permission to Promote Message
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="row pt-3 mb-4">
+							<div class="col-md-12">
+								<div class="form-floating mt-3">
+									<div class="form-check-inline">
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input" id="customCheck2">
+											<label class="custom-" for="customCheck2">Auto Ping</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-floating mt-3">
+									<div class="form-check-inline">
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input" id="customCheck1">
+											<label class="custom-" for="customCheck1">Enable Notifications</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> *@
+						<div class="form-actions">
+							<div class="card-body border-top px-0 pb-0">
+								<button type="submit" class="btn btn-primary px-5 py-8 mb-4 " id="saveButton">
+									Save
+								</button>
+									<a class="btn px-5 py-8 mb-4 bg-danger-subtle text-danger ms-6" asp-controller="LeadSource" asp-action="Index">
+										Cancel
+									</a>
+							</div>
+						</div>
+					</form>
+				</div> 
+			</div>
+
+					<div class="tab-pane fade" id="logs" role="tabpanel" aria-labelledby="logs-tab" tabindex="0">
+						<div class="row">
+							<div class="col-lg-12 mb-4 ">
+								<div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+									<div class="form-group d-sm-flex d-block align-items-center justify-content-between">
+										<label for="showentries" class="form-label mb-0 px-2 fw-normal">Show </label>
+										<select class="form-select" id="exampleInputSelect2">
+											<option selected="">10</option>
+											<option value="1">20</option>
+											<option value="2">50</option>
+										</select>
+										<label for="entries" class="form-label mb-0 px-2 fw-normal"> entries</label>
+									</div>
+									<div class="form-group d-sm-flex d-block align-items-center justify-content-between">
+										<label for="search" class="form-label mb-0 px-2">Search </label>
+										<input type="text" id="search" class="form-control">
+									</div>
+								</div>
+
+								<div class="table-responsive">
+									<table class="table text-nowrap mb-0 align-middle">
+										<thead>
+											<!-- start row -->
+											<tr>
+												<th>Log Object</th>
+												<th>Changed By</th>
+												<th>Date Time</th>
+												<th>No. of Changed Members</th>
+												<th>Log Type</th>
+											</tr>
+											<!-- end row -->
+										</thead>
+										<tbody>
+											<!-- start row -->
+											<tr>
+												<td>Just Money Leadify</td>
+												<td><span class="badge text-bg-darkgreen">SIBS</span></td>
+												<td>24-01-2025, 11:15</td>
+												<td><h6 class="fw-semibold mb-0">24579353</h6></td>
+												<td><h6 class="fw-semibold mb-0">24579353</h6></td>
+											</tr>
+											<!-- end row -->
+											<!-- start row -->
+											<tr>
+												<td>Just Money Leadify</td>
+												<td><span class="badge text-bg-darkgreen">SIBS</span></td>
+												<td>24-01-2025, 11:15</td>
+												<td><h6 class="fw-semibold mb-0">24579353</h6></td>
+												<td><h6 class="fw-semibold mb-0">24579353</h6></td>
+											</tr>
+											<!-- end row -->
+											<!-- start row -->
+											<tr>
+												<td>Just Money Leadify</td>
+												<td><span class="badge text-bg-darkgreen">SIBS</span></td>
+												<td>24-01-2025, 11:15</td>
+												<td><h6 class="fw-semibold mb-0">24579353</h6></td>
+												<td><h6 class="fw-semibold mb-0">24579353</h6></td>
+											</tr>
+											<!-- end row -->
+											<!-- start row -->
+											<tr>
+												<td>Just Money Leadify</td>
+												<td><span class="badge text-bg-darkgreen">SIBS</span></td>
+												<td>24-01-2025, 11:15</td>
+												<td><h6 class="fw-semibold mb-0">24579353</h6></td>
+												<td><h6 class="fw-semibold mb-0">24579353</h6></td>
+											</tr>
+											<!-- end row -->
+
+										</tbody>
+									</table>
+								</div>
+
+								<div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+									<div class="dataTables_info">Showing 1 to 10 of 20 entries</div>
+									<div class="pagination-hld mt-4">
+										<ul class="pagination justify-content-end">
+											<li class="page-item disabled">
+												<a class="page-link" href="javascript:void(0)" tabindex="-1" aria-disabled="true">First</a>
+											</li>
+											<li class="page-item disabled">
+												<a class="page-link" href="javascript:void(0)" tabindex="-1" aria-disabled="true">Previous</a>
+											</li>
+											<li class="page-item active">
+												<a class="page-link" href="javascript:void(0)">1</a>
+											</li>
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">2</a>
+											</li>
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">3</a>
+											</li>
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">...</a>
+											</li>
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">Next</a>
+											</li>
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">Last</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="form-actions">
+									<div class="card-body border-top px-0 pb-0">
+										<button type="submit" class="btn btn-primary px-5 py-8 mb-4 ">
+											Save
+										</button>
+										<button type="button" class="btn px-5 py-8 mb-4 bg-danger-subtle text-danger ms-6">
+											Cancel
+										</button>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+	 $(document).ready(function () {
+		$("#SaveEditLeadSource").submit(function (e) {
+			e.preventDefault();
+
+			 var model = {
+				Id: $("#LeadSourceId").val(),
+				Active: $("#Active").val() === "true",
+				BusinessUnit: $("#BusinessUnit").val(),
+				LeadSource: $("#LeadSource").val(),
+				UMID: $("#UMID").val(),
+				TelephoneNumber: $("#TelephoneNumber").val(),
+				LeadSourceClass: $("#LeadSourceClass").val(),
+				BrandId: $("#BrandId").val(),
+				Brand: $("#Brand").val(),
+				CustomerFriendlyName: $("#CustomerFriendlyName").val(),
+				ChangedBy: $("#ChangedBy").val(),
+				SubBrandName: $("#SubBrandName").val()  
+			};
+			
+			$.ajax({
+				url: '/LeadSource/SaveEditLeadSource',
+				method: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(model),
+				success: function (response) {
+					if (response.success === true) {
+						alert("Lead saved successfully!");						
+						window.location.reload();
+					}else{
+						alert("Failed to save!!!");
+					}
+				},
+				error: function (xhr) {
+					alert("An error occurred: " + xhr.responseText);
+				}
+			});
+		});
+	});
+</script>

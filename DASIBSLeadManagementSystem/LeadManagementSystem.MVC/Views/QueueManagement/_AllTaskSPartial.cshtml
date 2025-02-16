@@ -1,0 +1,190 @@
+﻿<div class="card">
+    <div class="card-body">
+        <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+            <h4 class="card-title fw-semibold mb-0">All Tasks</h4>
+            <div class="mb-3 mb-sm-0">
+                <div class="d-sm-flex d-block align-items-center justify-content-between">
+
+                    <div class="d-sm-flex d-block align-items-center justify-content-between">
+                        <div class="form-group d-sm-flex d-block align-items-center justify-content-between mx-3">
+                            <div class="position-relative">
+                                <input type="text" class="form-control product-search ps-5" id="input-search" placeholder="Search By Name...">
+                                <span class="position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+                                </span>
+                            </div>
+                        </div>
+                        <button type="button" class="btn bg-light text-dark" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <img src="~/images/adjustments-alt.svg" alt="New" width="20" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Advanced Search" />
+                            Filter
+                        </button>
+                        <button type="button" class="btn bg-light text-dark mx-3">
+                            <img src="~/images/arrow-up-to-arc.svg" alt="Close Tasks" width="20" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="To Top Of Queue" />
+                            To Top Of Queue
+                        </button>
+                        <button type="button" class="btn bg-danger text-white" data-bs-toggle="modal" data-bs-target="#al-danger-alert">
+                            <img src="~/images/trash.svg" alt="Close Tasks" width="20" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Close Tasks" />
+                            Close Tasks
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="collapse" id="collapseExample">
+            <div class="border-top py-3 border-bottom mb-4 bg-light px-2">
+                <form class="row">
+                    <div class="col-2">
+                        <div class="mb-3">
+                            <input type="text" class="form-control bg-white" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Due Date">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="mb-3">
+                            <input type="text" class="form-control bg-white" placeholder="Task Priority">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="mb-3">
+                            <select class="form-select bg-white">
+                                <option>Alert Due Status</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="mb-3">
+                            <select class="form-select bg-white">
+                                <option>Due Now</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="mb-3">
+                            <input type="number" class="form-control bg-white" placeholder="Lead Number">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="mb-3">
+                            <select class="form-select bg-white">
+                                <option>Lead Source</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="">
+                            <select class="form-select bg-white">
+                                <option>Team</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="">
+                            <select class="form-select bg-white">
+                                <option>Task Status</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="">
+                            <button type="button" class="btn bg-primary text-white">
+                                <img src="~/images/search-white.svg" alt="Search" width="20" />
+                                Search
+                            </button>
+                            <button type="button" class="btn btn-outline-dark mx-2">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-responsive" style="height:470px;">
+            <table class="table text-nowrap mb-0 align-middle">
+                <thead>
+                    <tr>
+                        <th><a href="#">Lead No <img src="~/images/arrow-narrow-up.svg" alt="arrow" width="15"></a></th>
+                        <th>Created</th>
+                        <th>Changed</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Debug</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input class="form-check-input" type="checkbox" value="" id="" checked></td>
+                        <td><h6 class="fw-semibold mb-0">12345</h6></td>
+                        <td>23-May-2024</td>
+                        <td>29-Apr-2024</td>
+                        <td><span class="badge text-bg-secondary">Direct Axis Web</span></td>
+                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
+                        <td><h6 class="fw-semibold mb-0">1234567894562</h6></td>
+                    </tr>
+                    <tr>
+                        <td><input class="form-check-input" type="checkbox" value="" id="" checked></td>
+                        <td><h6 class="fw-semibold mb-0">25642</h6></td>
+                        <td>23-May-2024</td>
+                        <td>29-Apr-2024</td>
+                        <td><span class="badge text-bg-success">External Vendor</span></td>
+                        <td><span class="badge bg-warning-subtle text-warning">Pending</span></td>
+                        <td><h6 class="fw-semibold mb-0">124578965324</h6></td>
+                    </tr>
+                    <!-- Additional rows as needed -->
+                </tbody>
+            </table>
+        </div>
+        <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+            <div class="dataTables_info">Showing 1 to 10 of 20 entries</div>
+            <div class="pagination-hld mt-4">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-disabled="true">First</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="javascript:void(0)">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:void(0)">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:void(0)">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:void(0)">...</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:void(0)">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:void(0)">Last</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="al-danger-alert" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+    <div class="modal-dialog modal-sm  modal-dialog-centered">
+        <div class="modal-content modal-filled bg-danger text-white">
+            <div class="modal-body p-4">
+                <div class="text-center text-danger">
+                    <img src="~/images/trash.svg" alt="Close Tasks" width="50" />
+                    <h4 class="mt-2 text-white">Confirm Deletion</h4>
+                    <p class="mt-3 text-white">
+                        Are you sure you want to delete the selected tasks?
+                    </p>
+                    <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal">
+                        Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>

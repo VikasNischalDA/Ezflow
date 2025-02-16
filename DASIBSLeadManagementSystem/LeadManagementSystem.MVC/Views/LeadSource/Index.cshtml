@@ -1,0 +1,247 @@
+﻿@model LeadManagementSystem.Shared.Infrastructure.ActionResult<LeadManagementSystem.Shared.Contracts.Response.BaseAPIResponse>;
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="body-wrapper">
+	<div class="container-fluid">
+		<div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4 bg-lightprimary">
+			<div class="card-body px-4 py-3">
+				<div class="row align-items-center">
+					<div class="col-9">
+						<h4 class="fw-semibold mb-8">Lead Sources</h4>
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item" aria-current="page">Lead Sources</li>
+
+							</ol>
+						</nav>
+					</div>
+					<div class="col-3">
+						<div class="text-end">
+							<img src="~/images/lead-icon.png" alt="Lead Sources" width="80" class="img-fluid" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="">
+			<!-- start Alternative Pagination -->
+			<div class="card">
+				<div class="card-body">
+					<div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+						<div class="d-sm-flex d-block align-items-center justify-content-between">
+							<select class="form-select w-auto" style="min-width:200px;">
+								<option value="1">SIBS Active Lead Sources</option>
+							</select>
+							@* <div class="form-group d-sm-flex d-block align-items-center justify-content-between">
+								<label for="search" class="form-label mb-0 px-2">Search </label>
+								<input type="text" id="search" class="form-control">
+							</div> *@
+						</div>
+						<div class="mb-3 mb-sm-0">
+							@* <button type="button" class="btn bg-light text-dark">
+								<img src="images/refresh.svg" alt="Refresh" width="20" />
+								Refresh
+							</button> *@
+							<button type="button" class="btn bg-light text-dark" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+								<img src="~/images/adjustments-alt.svg" alt="New" width="20" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Advanced Search" />
+								Filter
+							</button>
+							<button type="button" class="btn bg-primary text-white" onclick="window.location.href='@Url.Action("CreateLeadSource", "LeadSource")'">
+								<img src="~/images/plus.svg" alt="New" width="20" />
+								New
+							</button>
+						</div>
+					</div>
+					<div class="collapse" id="collapseExample">
+						<div class="border-top py-3 border-bottom mb-4 bg-light px-2">
+							<form class="row">
+								<div class="col">
+									<div class="">
+										<input type="text" class="form-control bg-white" id="name" name="name" placeholder="Name">
+									</div>
+								</div>
+								@* <div class="col">
+									<div class="">
+										<input type="text" class="form-control bg-white" id="Email" name="Email" placeholder="Email">
+									</div>
+								</div> *@
+								<div class="col">
+									<div class="">
+										<input type="text" class="form-control bg-white" id="UMID" name="UMID" placeholder="UMID">
+									</div>
+								</div>
+								<div class="col">
+									<div class="">
+										<select class="form-select bg-white" id="technicalClass" name="technicalClass">
+											<option value="1">All SIBS</option>
+											<option value="2">External Vendor</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-3">
+									<div class="">
+										<button type="button" id="searchButton" class="btn bg-primary text-white">
+											<img src="~/images/search-white.svg" alt="Search" width="20" />
+											Search
+										</button>
+										<button id="resetButton" type="button" class="btn btn-outline-dark mx-2">
+											Reset
+										</button>
+									</div>
+								</div>
+								<div class="col">
+									<div class="">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="row" id="leadSourceContainer">
+						@foreach (var lead in Model.Entity.ListOfLeadSource)
+						{
+							<div class="col-lg-4 col-md-6">
+								<div class="card text-bg-light1">
+									<a class="edit-card-btn" href="@Url.Action("Edit", "LeadSource", new { id = lead.UMID })">
+										<img src="~/images/edit.svg" alt="Edit" width="24" />
+									</a>
+									<div class="card-body p-3">
+										<div class="d-flex align-items-center justify-content-between gap-6">
+											<div>
+												<h5 class="text-dark mb-2" id="customerFriendlyName">@lead.CustomerFriendlyName</h5>
+												<p class="card-subtitle">
+													<span class="badge text-bg-darkgreen" id="leadBusinessUnit">@lead.BusinessUnit</span>
+												</p>
+											</div>
+										</div>
+										<div class="text-center text-dark mt-4">
+											<div class="hstack align-items-center justify-content-between border-bottom py-2">
+												<span class="fs-3">Lead Source ID</span>
+												<p class="mb-0">
+													<span class="badge bg-secondary-subtle text-success" id="leadSourceId">@lead.Id</span>
+												</p>
+											</div>
+											<div class="hstack align-items-center justify-content-between border-bottom py-2">
+												<span class="fs-3">UMID</span>
+												<p class="mb-0">
+													<span class="badge bg-success-subtle text-success" id="leadUmid">@lead.UMID</span>
+												</p>
+											</div>
+											@* <div class="hstack align-items-center justify-content-between border-bottom py-2">
+												<span class="fs-3">Priority</span>
+												<p class="mb-0">
+													<span class="badge bg-danger-subtle text-danger">@lead.Priority</span>
+												</p>
+											</div> *@
+											<div class="hstack align-items-center justify-content-between pt-2">
+												<span class="fs-3">Class</span>
+												<p class="mb-0">
+													<span class="badge bg-warning-subtle text-warning" id="leadSourceClass">@lead.LeadSourceClass</span>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+			<!-- end Alternative Pagination -->
+	</div>
+</div>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+
+			// Function to make AJAX call
+			function callAjax(name, umid, technicalClass) {
+				$.ajax({
+					url: '@Url.Action("GetLeadSource", "LeadSource")', // Ensure correct controller name
+					type: 'GET',
+					data: { name: name, umid: umid, technicalClass: technicalClass },
+					success: function (response) {
+						updateLeadSourceUI(response.listOfLeadSource);
+						console.log("Filtered Data:", response);
+					},
+					error: function (xhr, status, error) {
+						console.error("Error:", error);
+					}
+				});
+			}
+
+			// Handle the search button click event
+			$('#searchButton').on('click', function () {
+				var name = $('#name').val();
+				var umid = $('#UMID').val();
+				var technicalClass = $('#technicalClass option:selected').text();
+				callAjax(name, umid, technicalClass); // Call the reusable AJAX method
+			});
+
+			// Handle the reset button click event
+			$('#resetButton').on('click', function () {
+				// Reset the text fields
+				$('#name').val('');
+				$('#UMID').val('');
+				$('#technicalClass').val('1');  // Reset the dropdown selection
+
+				// Make AJAX call with empty values
+				callAjax('', '', 'All SIBS'); // Call the reusable AJAX method with empty parameters
+			});
+
+			function updateLeadSourceUI(data) {
+			var container = $('#leadSourceContainer'); // Use id instead of class
+			container.empty(); // Clear existing data
+
+			if (!data || data.length === 0) {
+				container.html(`<div class="col-12 text-center"><p class="text-danger fw-bold">No records found</p></div>`);
+				return;
+			}
+
+			$.each(data, function (index, lead) {
+				var card = `
+					<div class="col-lg-4 col-md-6">
+						<div class="card text-bg-light1">
+							<a class="edit-card-btn" href="/LeadSource/Edit?id=${lead.umid}">
+								<img src="images/edit.svg" alt="Edit" width="24" />
+							</a>
+							<div class="card-body p-3">
+								<div class="d-flex align-items-center justify-content-between gap-6">
+									<div>
+										<h5 class="text-dark mb-2" id="customerFriendlyName">${lead.customerFriendlyName}</h5>
+										<p class="card-subtitle">
+											<span class="badge text-bg-darkgreen" id="leadBusinessUnit">${lead.businessUnit}</span>
+										</p>
+									</div>
+								</div>
+								<div class="text-center text-dark mt-4">
+									<div class="hstack align-items-center justify-content-between border-bottom py-2">
+										<span class="fs-3">Lead Source ID</span>
+										<p class="mb-0">
+											<span class="badge bg-secondary-subtle text-success" id="leadSourceId">${lead.id}</span>
+										</p>
+									</div>
+									<div class="hstack align-items-center justify-content-between border-bottom py-2">
+										<span class="fs-3">UMID</span>
+										<p class="mb-0">
+											<span class="badge bg-success-subtle text-success" id="leadUmid">${lead.umid}</span>
+										</p>
+									</div>
+									<div class="hstack align-items-center justify-content-between pt-2">
+										<span class="fs-3">Class</span>
+										<p class="mb-0">
+											<span class="badge bg-warning-subtle text-warning" id="leadSourceClass">${lead.leadSourceClass}</span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				`;
+				container.append(card);
+			});
+		}
+	});
+</script>

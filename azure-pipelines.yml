@@ -1,0 +1,115 @@
+trigger:
+- azure-pipelines
+
+pool:
+  name: DirectAxis
+  demands: 
+  - Agent.Name -equals DEVDC01
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+# Install NuGet
+- task: NuGetToolInstaller@1
+  displayName: 'Install NuGet Tool'
+
+# Restore NuGet Packages
+- task: NuGetCommand@2
+  displayName: 'Restore NuGet Packages'
+  inputs:
+    command: 'restore'
+    restoreSolution: '$(solution)'
+    feedsToUse: 'select'
+    includeNuGetOrg: true
+
+# Use .NET SDK
+- task: UseDotNet@2
+  displayName: 'Use .NET 8 SDK'
+  inputs: 
+    packageType: 'sdk'
+    version: 8.x
+
+# Build Solution
+- task: DotNetCoreCLI@2
+  displayName: 'Build Solution'
+  inputs:
+    command: 'build'
+    projects: '$(solution)'
+    arguments: '--configuration $(buildConfiguration)'
+
+# Publish API Project
+- task: DotNetCoreCLI@2
+  displayName: 'Publish API Project'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/LeadManagementSystem.API.csproj'
+    arguments: '--configuration $(buildConfiguration) --output "$(Build.ArtifactStagingDirectory)/"'
+    zipAfterPublish: false
+
+# Publish MVC Project
+- task: DotNetCoreCLI@2
+  displayName: 'Publish MVC Project'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/LeadManagementSystem.MVC.csproj'
+    arguments: '--configuration $(buildConfiguration) --output "$(Build.ArtifactStagingDirectory)/"'
+    zipAfterPublish: false
+
+# Install Octopus CLI to be used
+- task: octopusdeploy.octopus-deploy-build-release-tasks.octo-installer.OctoInstaller@5
+  displayName: 'Use Octopus CLI tool version 9.*'
+  inputs:
+    version: '9.*'
+
+# Package API for Octopus
+- task: OctopusPack@4
+  displayName: 'Package API Project'
+  inputs:
+    PackageId: 'LeadManagementSystem.API'
+    PackageFormat: 'NuPkg'
+    PackageVersion: '1.0.$(Build.BuildId)'
+    SourcePath: '$(Build.ArtifactStagingDirectory)/LeadManagementSystem.API'
+    OutputPath: '$(Build.ArtifactStagingDirectory)/LeadManagementSystem.API/octopacked/'
+
+# Package MVC for Octopus
+- task: OctopusPack@4
+  displayName: 'Package MVC Project'
+  inputs:
+    PackageId: 'LeadManagementSystem.MVC'
+    PackageFormat: 'NuPkg'
+    PackageVersion: '1.0.$(Build.BuildId)'
+    SourcePath: '$(Build.ArtifactStagingDirectory)/LeadManagementSystem.MVC'
+    OutputPath: '$(Build.ArtifactStagingDirectory)/LeadManagementSystem.MVC/octopacked/'
+
+# Push API Package to Octopus
+- task: OctopusPush@5
+  displayName: 'Push API Package to Octopus'
+  inputs:
+    OctoConnectedServiceName: 'Octopus Deploy - DA'
+    Space: 'Direct Axis'
+    Package: '$(Build.ArtifactStagingDirectory)/LeadManagementSystem.API/octopacked/LeadManagementSystem.API.1.0.$(Build.BuildId).nupkg'
+    Replace: true
+
+# Push MVC Package to Octopus
+- task: OctopusPush@5
+  displayName: 'Push MVC Package to Octopus'
+  inputs:
+    OctoConnectedServiceName: 'Octopus Deploy - DA'
+    Space: 'Direct Axis'
+    Package: '$(Build.ArtifactStagingDirectory)/LeadManagementSystem.MVC/octopacked/LeadManagementSystem.MVC.1.0.$(Build.BuildId).nupkg'
+    Replace: true
+
+# Create Release in Octopus
+- task: OctopusCreateRelease@5
+  displayName: 'Create Octopus Release'
+  inputs:
+    OctoConnectedServiceName: 'Octopus Deploy - DA'
+    Space: 'Direct Axis'
+    ProjectName: 'EZFlow'
+    ReleaseNumber: '1.0.$(Build.BuildId)'
+    Channel: 'Release'

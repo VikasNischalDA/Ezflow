@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\net8.0\LeadManagementSystem.Contracts.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\net8.0\LeadManagementSystem.Contracts.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DASIBSLeadManagementSystem.Shared.Contracts\LeadManagementSystem.Shared.Contracts.csproj" />
+    <ProjectReference Include="..\LeadManagementSystem.Shared.Infrastructure\LeadManagementSystem.Shared.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

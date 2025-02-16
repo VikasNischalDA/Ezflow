@@ -1,0 +1,129 @@
+﻿@using LeadManagementSystem.Contracts.Request;
+@model LoginRequest
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon icon-->
+    <link rel="shortcut icon" type="image/png" href="~/images/favicon.ico" />
+
+    <!-- Core Css -->
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="~/css/custom.css" />
+    <title>EzFlow Admin</title>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <img src="~/images/logo.png" alt="loader" class="lds-ripple img-fluid" />
+    </div>
+    <div id="main-wrapper" class="auth-customizer-none">
+        <div class="position-relative overflow-hidden min-vh-100 w-100">
+            <div class="position-relative z-index-5">
+                <div class="row">
+                    <div class="col-xl-7 col-xxl-7">
+                        <div class="d-none d-xl-flex align-items-center justify-content-center h-n80">
+                            <img src="~/images/login-bg.jpg" alt="EzFlow" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-xxl-5">
+                        <div class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
+                            <div class="auth-max-width col-sm-8 col-md-6 col-xl-7 px-4">
+                                <a href="#" class="text-nowrap logo-img logo-hld px-4 py-9 w-100 text-center mb-4">
+                                    <img src="~/images/logo.png" class="" width="80" alt="EzFlow" /> <span class="logo-txt">E<span class="deepred-color">z</span>Flow</span>
+                                </a>
+                                <h2 class="mb-1 fs-7 fw-bolder ms-700">Welcome to EzFlow</h2>
+                                <p class="mb-7">Lead Management System</p>
+
+                                <form id="loginForm" asp-action="Login" asp-controller="Login" method="post">
+                                    <div class="mb-3">
+                                        <label asp-for="Username" class="form-label">Username</label>
+                                        <input asp-for="Username" class="form-control rounded-0" placeholder="Username" aria-describedby="emailHelp" value="@ViewBag.RemeberMeUserName" />
+                                        @*  <input type="email" class="form-control rounded-0" id="exampleInputEmail1" aria-describedby="emailHelp"> *@
+                                        <span asp-validation-for="Username" class="text-danger"></span>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label asp-for="Password" class="form-label">Password</label>
+                                        <input asp-for="Password" type="password" class="form-control rounded-0" placeholder="Password" value="@ViewBag.RememberMePassword" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <div class="form-check">
+                                            <input asp-for="RememberMe" class="form-check-input primary" type="checkbox" />
+                                            <label class="form-check-label text-dark fs-3" for="RememberMe"> Remember this Device</label>
+                                        </div>
+                                    </div>
+                                    <button id="signInButton" type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-0">Sign In</button>
+                                </form>
+                                @if (TempData["Message"] != null)
+                                {
+
+                                    <div class="text-center" id="alertMessage">
+                                        <div class="alert alert-danger alert-dismissible fade show">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            <strong>Error !</strong>  @TempData["Message"]
+                                        </div>
+                                        <script>
+                                            setTimeout(() => {
+                                                const alert = document.getElementById('alertMessage');
+                                                if (alert) {
+                                                    alert.style.opacity = '0'; // Fade out
+                                                    setTimeout(() => alert.remove(), 500); // Remove from DOM after fade-out
+                                                }
+                                            }, 5000);
+                                        </script>
+                                    </div>
+                                }
+
+                                @if (ViewData.ModelState.Count > 0 && !ViewData.ModelState.IsValid)
+                                {
+                                    <div class="alert alert-danger text-center">
+                                        Please correct the errors below.
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/app.init.js"></script>
+    <script src="~/js/app.min.js"></script>
+    <script src="~/js/simplebar.min.js"></script>
+    <script src="~/js/theme.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.validator.unobtrusive.parse('form');
+
+            $('form input, form select, form textarea').blur(function () {
+                $(this).valid();
+            });
+        });
+              $(document).ready(function () {
+            $('#loginForm').on('submit', function () {
+                 if (!$(this).valid()) {
+                       $('#signInButton').prop('disabled', false).text('Sign In');
+            event.preventDefault();
+                 } else {
+            // If the form is valid, disable the sign-in button and change text
+            $('#signInButton').prop('disabled', true).text('Signing In...');
+        }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,447 @@
+﻿@model LeadManagementSystem.Shared.Infrastructure.ActionResult<LeadManagementSystem.Shared.Contracts.Response.PaginationResponse>;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="body-wrapper">
+    <div class="container-fluid">
+        <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4 bg-lightprimary">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">Dashboard</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a class="text-muted text-decoration-none" href="#">Home</a>
+                                </li>
+                                <li class="breadcrumb-item" aria-current="page">Dashboard</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-end">
+                            <img src="~/images/layout.png" alt="Dashboard" width="80" class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class"">
+            <!--  Owl carousel -->
+            <div class="owl-carousel counter-carousel owl-theme">
+                
+                <div class="item">
+                    <div class="card border-0 zoom-in bg-light-subtle shadow-none">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img src="~/images/icon-lead-7.png" alt="Contract App" width="50" height="50" class="mb-3">
+                                <p class="fw-semibold fs-3 text-dark mb-1">Contract <br>App</p>
+                                <h5 id="totalContractApplications" class="fw-semibold text-dark mb-0">
+                                    @ViewBag.TotalContractApplications
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+                
+                <div class="item">
+                    <div class="card border-0 zoom-in bg-danger-subtle shadow-none">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img src="~/images/icon-lead-6.png" alt="Fraud App" width="50" height="50" class="mb-3">
+                                <p class="fw-semibold fs-3 text-danger mb-1">Fraud <br>App</p>
+                                <h5 id="totalFraudApps" class="fw-semibold text-danger mb-0">
+                                    @ViewBag.TotalFraudApps
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="card border-0 zoom-in bg-info-subtle shadow-none">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img src="~/images/icon-lead-5.png" alt="Validations App" width="50" height="50" class="mb-3">
+                                <p class="fw-semibold fs-3 text-info mb-1">Validations <br>App</p>
+                                <h5 id="totalValidationsApps"class="fw-semibold text-info mb-0">
+                                    @ViewBag.TotalValidationApps
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="card border-0 zoom-in bg-warning-subtle shadow-none">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img src="~/images/icon-lead-4.png" alt="Credit Apps" width="50" height="50" class="mb-3">
+                                <p class="fw-semibold fs-3 text-warning mb-1">Credit<br>Apps</p>
+                                <h5 id="totalCreditApps" class="fw-semibold text-warning mb-0">
+                                    @ViewBag.TotalCreditApps
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="card border-0 zoom-in bg-info-subtle shadow-none">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img src="~/images/icon-lead-3.png" alt="App Cap" width="50" height="50" class="mb-3">
+                                <p class="fw-semibold fs-3 text-info mb-1">App <br>Cap</p>
+                                <h5 id="totalAppCat" class="fw-semibold text-info mb-0">
+                                    @ViewBag.TotalAppCat
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="card border-0 zoom-in bg-success-subtle shadow-none">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img src="~/images/icon-lead-2.png" alt="Lead Not Processed" width="50" height="50" class="mb-3">
+                                <p class="fw-semibold fs-3 text-success mb-1">Lead Not <br>Processed</p>
+                                <h5 id="totalLeadNotProcessed" class="fw-semibold text-success mb-0">
+                                    @ViewBag.TotalLeadsNotProcessed
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+
+                <div class="item">
+                    <div class="card border-0 zoom-in bg-primary-subtle shadow-none">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img src="~/images/icon-lead-1.png" alt="Lead Received" width="50" height="50" class="mb-3">
+                                <p class="fw-semibold fs-3 text-primary mb-1">
+                                    Lead <br>Received
+                                </p>
+                                <h5 id="totalLeadReceived" class="fw-semibold text-primary mb-0">
+                                    @ViewBag.TotalLeadReceived
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+            
+
+            <!-- start Alternative Pagination -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                        <select id="Dropdown" class="form-select w-auto" style="min-width:200px;">
+                            <option value="1">All SIBS</option>
+                            <option value="2">External Vendor</option>
+                        </select>
+                        <div class="mb-3 mb-sm-0">
+                            <button id="refreshButton" type="submit" class="btn bg-light text-dark">
+                                <img src="~/images/refresh.svg" alt="Refresh" width="20" />
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                        <div class="form-group d-sm-flex d-block align-items-center justify-content-between">
+                            <label for="showentries" class="form-label mb-0 px-2 fw-normal">Show </label>
+                            <select id="PageDropdown"  class="form-select">
+                                <option value="1">10</option>
+                                <option value="2">20</option>
+                                <option value="3">50</option>
+                            </select>
+                            <label for="entries" class="form-label mb-0 px-2 fw-normal"> entries</label>
+                        </div>                        
+                    </div>
+
+                    <div class="table-responsive" style="height:570px;">
+                        <table id="alt_pagination" class="table text-nowrap mb-0 align-middle">
+                            <thead>
+                                <!-- start row -->
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Lead Source</th>
+                                    <th>Lead Received</th>
+                                    <th>Leads Not Processed</th>
+                                    <th>App Capt</th>
+                                    <th>Fraud Apps</th>
+                                    <th>Credit Apps</th>
+                                    <th>Validation Apps</th>
+                                    <th>Contract Apps</th>
+                                </tr>
+                                <!-- end row -->
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Entity.Data != null)
+                                {
+                                    foreach (var item in Model.Entity.Data)
+                                    {
+                                        <tr>
+                                            <td><span class="badge text-bg-secondary">@item.Class</span></td>
+                                            <td>@item.LeadSource</td>
+                                            <td><h6 class="fw-semibold mb-0">@item.LeadReceived</h6></td>
+                                            <td><h6 class="fw-semibold mb-0">@item.LeadsNotProcessed</h6></td>
+                                            <td><h6 class="fw-semibold mb-0">@item.AppCapture</h6></td>
+                                            <td><h6 class="fw-semibold mb-0">@item.FraudApps</h6></td>
+                                            <td><h6 class="fw-semibold mb-0">@item.CreditApps</h6></td>
+                                            <td><h6 class="fw-semibold mb-0">@item.ValidationApps</h6></td>
+                                            <td><h6 class="fw-semibold mb-0">@item.ContractApplications</h6></td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center">No records found.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                        <div id="dataInfo" class="dataTables_info">
+                            Showing @(Math.Min((ViewBag.CurrentPage - 1) * ViewBag.PageSize + 1, ViewBag.TotalCount)) to @Math.Min(ViewBag.CurrentPage * ViewBag.PageSize, ViewBag.TotalCount) of @ViewBag.TotalCount entries
+                        </div>
+                        <div class="pagination-hld mt-4">
+                            <ul class="pagination justify-content-end" id="paginationContainer">
+                                <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                                    <a class="page-link pagination-btn" href="javascript:void(0)" data-page="1">First</a>
+                                </li>
+                                <li class="page-item @(ViewBag.HasPreviousPage ? "" : "disabled")">
+                                    <a class="page-link pagination-btn" href="javascript:void(0)" data-page="@ViewBag.CurrentPage - 1">Previous</a>
+                                </li>
+
+                                @for (int i = 1; i <= Math.Ceiling((double)ViewBag.TotalCount / ViewBag.PageSize); i++)
+                                {
+                                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                        <a class="page-link pagination-btn" href="javascript:void(0)" data-page="@i">@i</a>
+                                    </li>
+                                }
+
+                                <li class="page-item @(ViewBag.HasNextPage ? "" : "disabled")">
+                                    <a class="page-link pagination-btn" href="javascript:void(0)" data-page="@ViewBag.CurrentPage + 1">Next</a>
+                                </li>
+                                <li class="page-item @(ViewBag.CurrentPage == Math.Ceiling((double)ViewBag.TotalCount / ViewBag.PageSize) ? "disabled" : "")">
+                                    <a class="page-link pagination-btn" href="javascript:void(0)" data-page="@Math.Ceiling((double)ViewBag.TotalCount / ViewBag.PageSize)">Last</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end Alternative Pagination -->
+        </div>
+    </div>
+</div>
+
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#refreshButton').on('click', function () {
+            var dropdownValue = $('#Dropdown option:selected').text();
+            let pageNumber = 1;
+            let pageSize = $('#PageDropdown option:selected').text();;
+
+            refreshDashBoard(dropdownValue, pageSize, pageNumber);
+
+            $.ajax({
+                url: '@Url.Action("GetFilterLeadRecords", "Dashboard")',  // Controller action URL
+
+                method: 'GET',
+                data: 
+                { 
+                    className: dropdownValue,
+                    pageSize : pageSize
+                },
+                success: function (response) {
+                        updateTable(response.data);
+                        renderPagination(response);
+                },
+                error: function () {
+                    alert('Failed to refresh data');
+                }
+            });
+        });
+
+         
+            $(document).on("click", ".pagination-btn", function () {
+                let page = $(this).data("page");  // Get the page number from the data attribute
+                fetchData(page);  // Call fetchData with the page number
+            });
+
+
+        function fetchData(pageNumber) {
+            var pageSize = $('#PageDropdown option:selected').text();
+            var dropdownValue = $('#Dropdown option:selected').text();
+
+            $.ajax({
+            url: '@Url.Action("GetFilterLeadRecords", "Dashboard")',
+            type: 'GET',
+            data: 
+            { 
+                className: dropdownValue,
+                pageNumber: pageNumber, 
+                pageSize: pageSize 
+            },
+            success: function(response) 
+            {
+                updateTable(response.data);                
+                renderPagination(response);
+            }
+            });
+            
+            refreshDashBoard(dropdownValue, pageSize, pageNumber);
+        }
+        
+        $('#Dropdown').change(function () {
+            var dropdownValue = $('#Dropdown option:selected').text();
+            let pageNumber = 1;
+            let pageSize = $('#PageDropdown option:selected').text();
+
+            refreshDashBoard(dropdownValue, pageSize, pageNumber);
+            callControllerWithSelectedValue(dropdownValue, pageSize);
+
+        });
+
+
+        $('#PageDropdown').change(function () {
+            var dropdownValue = $('#Dropdown option:selected').text();
+            var pageSize = $('#PageDropdown option:selected').text();
+            let pageNumber = 1;
+
+            refreshDashBoard(dropdownValue, pageSize, pageNumber);
+            callControllerWithSelectedValue(dropdownValue, pageSize);
+
+        });
+
+    function renderPagination(response){
+        let paginationContainer = $("#paginationContainer");
+        let dataInfo = $("#dataInfo");
+        let totalPages = Math.ceil(response.totalCount / response.pageSize);
+
+        paginationContainer.empty(); // Clear previous pagination
+
+        // Update Data Info
+        let startEntry = (response.currentPage - 1) * response.pageSize + 1;
+        let endEntry = Math.min(response.currentPage * response.pageSize, response.totalCount);
+        dataInfo.html(`Showing ${startEntry} to ${endEntry} of ${response.totalCount} entries`);
+
+        // First Button
+        paginationContainer.append(`<li class="page-item ${response.currentPage === 1 ? 'disabled' : ''}">
+            <a class="page-link pagination-btn" href="javascript:void(0)" data-page="1">First</a>
+        </li>`);
+
+        // Previous Button
+        let prevPage = response.currentPage > 1 ? response.currentPage - 1 : 1;
+        paginationContainer.append(`<li class="page-item ${response.currentPage > 1 ? '' : 'disabled'}">
+            <a class="page-link pagination-btn" href="javascript:void(0)" data-page="${prevPage}">Previous</a>
+        </li>`);
+
+        // Page Numbers
+        for (let i = 1; i <= totalPages; i++) {
+            paginationContainer.append(`<li class="page-item ${i === response.currentPage ? 'active' : ''}">
+                <a class="page-link pagination-btn" href="javascript:void(0)" data-page="${i}">${i}</a>
+            </li>`);
+        }
+
+        // Next Button
+        let nextPage = response.currentPage < totalPages ? response.currentPage + 1 : totalPages;
+        paginationContainer.append(`<li class="page-item ${response.currentPage < totalPages ? '' : 'disabled'}">
+            <a class="page-link pagination-btn" href="javascript:void(0)" data-page="${nextPage}">Next</a>
+        </li>`);
+
+        // Last Button
+        paginationContainer.append(`<li class="page-item ${response.currentPage === totalPages ? 'disabled' : ''}">
+            <a class="page-link pagination-btn" href="javascript:void(0)" data-page="${totalPages}">Last</a>
+        </li>`);
+    }
+
+
+    function callControllerWithSelectedValue(dropdownValue, pageSize) {
+        $.ajax({
+            url: '@Url.Action("GetFilterLeadRecords", "Dashboard")', // URL to your controller action
+            type: 'GET',
+            data: 
+            {
+                className : dropdownValue,
+                pageSize : pageSize
+            },
+            success: function (response) 
+            {
+                updateTable(response.data);
+                renderPagination(response);
+            },
+            error: function (error) {
+            alert('Failed to get the data');
+            }
+        });
+    }
+
+    function refreshDashBoard(dropdownValue, pageSize, pageNumber )
+    {
+        $.ajax({
+            url: '@Url.Action("RefreshDashboard", "Dashboard")', // Adjust based on your controller/action
+            type: 'GET',
+            data:
+            {
+                className: dropdownValue,
+                pageSize: pageSize,
+                pageNumber: pageNumber
+            },
+            success: function (response) 
+            {
+                $("#totalLeadReceived").text(response.totalLeadReceived); 
+                $("#totalLeadNotProcessed").text(response.totalLeadsNotProcessed); 
+                $("#totalAppCat").text(response.totalAppCat); 
+                $("#totalCreditApps").text(response.totalCreditApps); 
+                $("#totalValidationsApps").text(response.totalValidationApps);
+                $("#totalFraudApps").text(response.totalFraudApps); 
+                $("#totalContractApplications").text(response.totalContractApplications);
+            },
+            error: function () {
+                alert("Error fetching updated value!");
+            }
+        });
+    }
+
+    function updateTable(data) {
+        var tableBody = $('#alt_pagination tbody');
+        tableBody.empty();
+        if (!data || data.length === 0)
+        {
+            var row = `
+                    <tr>
+                        <td colspan="9" class="text-center">No Data Available</td>
+                    </tr>
+                    `;
+            tableBody.append(row);
+        }
+        else
+        {
+            data.forEach(function (item) {
+            var row = `
+                    <tr>
+                        <td><span class="badge text-bg-secondary">${item.class}</span></td>
+                        <td>${item.leadSource}</td>
+                        <td><h6 class="fw-semibold mb-0">${item.leadReceived}</h6></td>
+                        <td><h6 class="fw-semibold mb-0">${item.leadsNotProcessed}</h6></td>
+                        <td><h6 class="fw-semibold mb-0">${item.appCapture}</h6></td>
+                        <td><h6 class="fw-semibold mb-0">${item.fraudApps}</h6></td>
+                        <td><h6 class="fw-semibold mb-0">${item.creditApps}</h6></td>
+                        <td><h6 class="fw-semibold mb-0">${item.validationApps}</h6></td>
+                        <td><h6 class="fw-semibold mb-0">${item.contractApplications}</h6></td>
+                    </tr>
+                   `;
+                        tableBody.append(row);
+                });
+            }
+        }
+    });
+</script>
